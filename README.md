@@ -5,3 +5,4 @@ Projeto de graduação desenvolvido em conjunto com Igor Brito com foco na ident
 ## Tecnologies
 - Python
 - Pytorch
+- NLTK
