@@ -33,7 +33,7 @@ class ds_gen:
 
     def __get_path_up_configuration__(self, go_up_on_path):
         path_up=""
-        for index in range(0,go_up_on_path):
+        for _ in range(go_up_on_path):
             path_up+="../"
         return path_up
 
