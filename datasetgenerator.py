@@ -5,7 +5,6 @@ class ds_gen:
 
     COUTINHO = "coutinho-dataset"
     DENSER = "denser-dataset"
-    __PATH_TO_RAW_DATA__ = "data/raw/"
     __PATH_TO_PARSED_DATA__ = "data/parsed/"
 
     def __get_paragraph__(self, filename):
@@ -17,19 +16,24 @@ class ds_gen:
     def __get_author_file_names__(self, path):
         author_file_names = os.listdir(path)
         return author_file_names
+    
+    def __get_index_from_file_name(self, file_name):
+        return file_name.split("_")[1].split(".")[0]
 
     def __get_data__(self, path, dataset_size):
-        paragraphs = []
+        paragraphs = {}
         author_file_names = self.__get_author_file_names__(path)
         for i, file_name in enumerate(author_file_names, 0):
             if i >= dataset_size:
                 return paragraphs
-            paragraphs.append(self.__get_paragraph__(path+"/"+file_name))
+            paragraph = self.__get_paragraph__(path+"/"+file_name)
+            index = self.__get_index_from_file_name(file_name)
+            paragraphs.update({index: paragraph})
         return paragraphs
 
     def __get_path_up_configuration__(self, go_up_on_path):
         path_up=""
-        for index in range(0,go_up_on_path):
+        for _ in range(go_up_on_path):
             path_up+="../"
         return path_up
 
@@ -48,9 +52,11 @@ class ds_gen:
         return data
     
     def __get_data_by_indices__(self, data, indices):
-        selected_data = []
+        selected_data = {}
+        data_keys = list(data.keys())
         for index in indices:
-            selected_data.append(data[index])
+            key = data_keys[index]
+            selected_data.update({key: data[key]})
         return selected_data
     
     def get_dataset_from_author(self, author, proportion_training, dataset_size, go_up_on_path = 0):
