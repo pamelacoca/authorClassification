@@ -9,7 +9,7 @@ class ds_gen:
     __PATH_TO_PARSED_DATA__ = "data/parsed/"
 
     def __get_paragraph__(self, filename):
-        f = open(filename, "r")
+        f = open(filename, "r", encoding="utf8")
         paragraph = f.read()
         f.close()
         return paragraph
